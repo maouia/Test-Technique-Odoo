@@ -1,0 +1,70 @@
+<odoo>
+
+    <record id="view_post_form" model="ir.ui.view">
+        <field name="name">post.publication.form</field>
+        <field name="model">post.publication</field>
+        <field name="arch" type="xml">
+            <form string="Post Publication">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="link"/>
+                        <field name="publisher"/>
+                        <field name="description"/>
+                        <field name="publication_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_post_tree" model="ir.ui.view">
+        <field name="name">post.publication.tree</field>
+        <field name="model">post.publication</field>
+        <field name="arch" type="xml">
+            <tree string="Post Publications">
+                <field name="name"/>
+                <field name="link"/>
+                <field name="publisher"/>
+                <field name="description"/>
+                <field name="publication_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+<record id="ir_cron_scrape_job_posts" model="ir.cron">
+    <field name="name">Scrape Job Posts</field>
+    <field name="model_id" ref="model_post_publication"/>
+    <field name="state">code</field>
+    <field name="code">model.scrape_and_add_posts()</field>
+    <field name="active" eval="True"/>
+    <field name="interval_type">days</field>
+
+</record>
+
+
+    <record id="action_post_publication" model="ir.actions.act_window">
+        <field name="name">Post Publications</field>
+        <field name="res_model">post.publication</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first post publication
+            </p>
+        </field>
+    </record>
+
+
+
+
+
+
+
+
+    <menuitem id="menu_post_publication" name="Post Publications" sequence="10"/>
+
+
+    <menuitem id="submenu_post_publication" parent="menu_post_publication" name="Publications" sequence="10" action="action_post_publication"/>
+</odoo>
